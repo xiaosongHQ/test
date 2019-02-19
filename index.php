@@ -16,21 +16,22 @@ $config = [
 
 $app = Factory::officialAccount($config);
 
-$baseJson = $app->jssdk->buildConfig(array('onMenuShareQQ', 'onMenuShareWeibo'), true);
+$baseJson = $app->jssdk->buildConfig(array('onMenuShareTimeline','onMenuShareAppMessage'), true);
 
 //ar_dump($baseJson);
 
 ?>
 <button id="share">分享测试</button>
 <script>
+    var baseJson = (<?php echo $baseJson; ?>);
+    console.log(baseJson);
+    wx.config(baseJson);
 wx.ready(function(){
-	var baseJson = (<?php echo $baseJson; ?>);
-	console.log(baseJson);
-	wx.config(baseJson);
+	
 	wx.onMenuShareAppMessage({
     title: '微信分享测试', // 分享标题
     desc: '这是一个微信的分享测试', // 分享描述
-    link: 'http://www.xiaosonghq.com', // 分享链接，该链接域名必须与当前企业的可信域名一致
+    link: 'http://test.xiaosonghq.com', // 分享链接，该链接域名必须与当前企业的可信域名一致
     imgUrl: 'http://www.xiaosonghq.com/app/uploads/20190116/PVyRNAELlzqWHzBs3kLoBYT9col9V3l2FwgW7n1B.png', // 分享图标
     type: 'link', // 分享类型,music、video或link，不填默认为link
     dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -46,7 +47,7 @@ wx.ready(function(){
 
 	wx.onMenuShareTimeline({
             title: '测试', // 分享标题
-            link: 'http://www.xiaosonghq.com', // 分享链接
+            link: 'http://test.xiaosonghq.com', // 分享链接
             imgUrl: 'http://www.xiaosonghq.com/app/uploads/20190116/PVyRNAELlzqWHzBs3kLoBYT9col9V3l2FwgW7n1B.png',
             success: function (res) {
                 alert('已分享');
